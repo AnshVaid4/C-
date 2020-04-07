@@ -1,0 +1,73 @@
+#include<iostream>
+#include<process.h>
+using namespace std;
+struct tree
+{
+	int data;
+	tree *left;
+	tree *right;
+};
+tree *root=NULL;
+void insert()
+{
+	tree *p=NULL;
+	if(root==NULL)                 //for first time
+	{
+		root=new tree;
+		cout<<"\nEnter data ";
+		cin>>root->data;
+		root->left=NULL;
+		root->right=NULL;
+	}
+	else                           //if root have children
+	{
+		p=root;
+		tree *parent=NULL,*q=NULL;
+		q=new tree;
+		q->left=NULL;
+		q->right=NULL;
+		cout<<"\nEnter data ";
+		cin>>q->data;
+		while(p!=NULL)
+		{if((q->data)<(p->data))
+		{
+			parent=p;
+			p=p->left;
+		}
+		 else
+		 {
+		 	parent=p;
+		 	p=p->right;
+		 }
+		}
+		if((parent->data)>((q->data)))	parent->left=q;
+		else parent->right=q;
+	}
+}
+
+void traverse(tree *root)
+{
+	tree *p=root;
+	if(p==NULL)
+	{
+		cout<<"\nNO CHILD PRESENT";
+		exit(0);
+	}
+	else{
+	traverse(p->left);
+	cout<<p->data<<" ";
+	traverse(p->right);
+        }
+}
+
+void getvalue()
+{	
+for(int i=0;i<7;i++)
+ 	insert();
+traverse(root);
+}
+
+main()
+{
+	getvalue();
+}
