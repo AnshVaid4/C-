@@ -1,0 +1,334 @@
+#include<iostream>
+#include<fstream>
+#include<stdio.h>
+#include<conio.h>
+#include<iomanip>
+#include<process.h>
+#include<windows.h>
+using namespace std;
+//=================================================================================================================================================================    password function
+
+void password()                                                                                                                                                       
+{static int a=1;
+ char password[20];
+cout<<"\n\n*******************************************************************************";
+cout<<"\n\n\t\tYOU HAVE GOT 3 CHANCES TO ENTER CORRECT PASSWORD\n\t\t   OTHERWISE THE PROGRAM WILL GET TERMINATED\n\n";
+cout<<"*******************************************************************************";Beep(0,3000);
+for(int i=1;i<=3;i++,a++)
+ {cout<<"\n\nENTER PASSWORD->";cin>>password;
+  if(strcmp("Networking",password)==0)
+  {cout<<endl<<"*****************************  PASSWORD CORRECT  *******************************";
+   Beep(1300,240);Beep(1500,450);system("cls");break;}
+  else
+  {if(i==4) break;
+   cout<<"\n                               INCORRECT PASSWORD";
+   for(int k=0;k<3;k++)
+   Beep(700,160);Beep(0,800);
+   cout<<"\n\n***************************  Try your chance number "<<i+1<<" *************************";}
+}
+ if(a==4)
+ {system("cls");
+  cout<<endl<<setfill('*')<<setw(30)<<"\n\n\n\n\n\t\t    SORRY YOU ARE NOT AN AUTHORIZED PERSON"<<setfill('*')<<setw(30)<<"\n\n\n\t\t    Enter any key to terminate the program";
+  getch();Beep(220,240);exit(0);
+ }
+}
+//=======================================================================================================================================================class for gettiong bill number
+
+class data
+{ int status;
+  unsigned long long int amount,phone_number,advance,total;
+  char dOs[10],dOr[10],name[30],lpCompany[10],address[50],problem[50];
+  public:
+  void get()
+  {status=0;
+   cout<<"\nEnter the name of customer                     ->";gets(name);                                                           //================you have to create file here
+   cout<<"\nEnter customer's phone number                  ->";cin>>phone_number;cin.ignore();                                       //to enter customer data in file
+   cout<<"\nEnter customer's address                       ->";gets(address);
+   cout<<"\nEnter the problem he is dealing with his laptop->";gets(problem);                                                        //change extraction keywords with object of
+   cout<<"\nEnter customer's laptop company                ->";gets(lpCompany);                                                      //ofstream
+   cout<<"\nEnter date of submission of laptop             ->";gets(dOs);
+   cout<<"\nEnter date of retrieval of laptop              ->";gets(dOr);
+   cout<<"\nEnter total amount for repairing               ->";cin>>amount;cin.ignore();
+   cout<<"\nEnter advance that he is paying                ->";cin>>advance;cin.ignore();
+   total=amount-advance;
+   cout<<"\nThe final amount he will pay is                ->";cout<<total;
+   cout<<"\n\nStatus(0 for not repaired,1 for repaired)      ->";cin>>status;cin.ignore();
+                                                               if(status) cout<<"->repaired";
+                                                               else cout<<"                                               ->not repaired";
+                                                               cout<<endl<<endl<<endl;                                                                
+ }
+
+  void show()
+  {
+   cout<<"\nName of customer                         ->";puts(name);                                                           
+   cout<<"\nPhone number                             ->";cout<<phone_number;                                                         //take data from file
+   cout<<"\nCustomer's address                       ->";puts(address);
+   cout<<"\nProblem of customer                      ->";puts(problem);
+   cout<<"\nCustomer's laptop company                ->";puts(lpCompany);
+   cout<<"\nDate of submission of laptop             ->";puts(dOs);
+   cout<<"\nDate of retrieval of laptop              ->";puts(dOr);
+   cout<<"\nTotal amount for repairing               ->";cout<<amount;
+   cout<<"\n\nAdvance that he is payed                 ->";cout<<advance;
+   total=amount-advance;
+   cout<<"\n\nThe final amount he will pay is          ->";cout<<total;
+   cout<<"\n\nStatus                                   ->";if(status) cout<<"repaired";
+                                                         else cout<<"not repaired";cout<<endl<<endl<<endl;
+  }
+long long SEARCH()
+{return phone_number;}
+int Status()
+{return status;}
+};                                                                                                                                   //class data closes
+  
+//===================================================================================================================================================================   main
+int n=0;
+main()
+{ password();
+  system("cls");
+  cout<<"\n\n*******************************************************************************";
+  cout<<"\n\n\t\t\t WELCOME ANSH TO YOUR PROGRAM";cout<<"\n\n*******************************************************************************";Beep(0,1555);
+  cout<<"\n\n\n\n\n\n\t\t\t  Press any key to proceed";
+  getch();
+  system("cls");
+  data O1,O2,O3;int n,a;char ch;
+ //=========================================================================================================== Real program starts
+ start:
+ system("cls");
+ cout<<"\n\t\t*********************  MENU  *********************\n\n";
+ cout<<"\n\t\t*     1:Enter data for first time                *\n\n";
+ cout<<"\t\t*     2:See all stored records                   *\n\n";
+ cout<<"\t\t*     3:Add any data                             *\n\n";
+ cout<<"\t\t*     4:Remove any data                          *\n\n";
+ cout<<"\t\t*     5:Edit any record                          *\n\n";
+ cout<<"\t\t*     6:Search information you have stored       *\n\n";
+ cout<<"\t\t*     7:Search for repaired/not repaired laptops *\n\n";
+ cout<<"\t\t*     8:Exit program                             *\n\n";
+ cout<<"\t\t**************************************************";
+ cout<<"\n\n\t\t\t  CHOOSE THE OPTION-> ";cin>>a;
+
+ //==============================================================================================================================================================switch starts
+ switch(a)
+ {case 1:{ cout<<"\a";
+           system("cls");                  
+           cout<<"\nHow much data you want to enter? ";cin>>::n;cin.ignore();
+           ofstream os("SIZE.txt",ios::binary|ios::ate);
+           ifstream is("SIZE.txt",ios::binary);
+		   os<<::n;
+           os.seekp(0);
+           is>>::n;
+		   ofstream out("DATA.txt",ios::binary);                                                                 //============================to put data in file
+           for(int i=0;i<(::n);i++)
+           {O2.get();
+           out.write((char*)&O2,sizeof(O2));
+           }cout<<"\n   ********** Data successfully written in file named DATA.txt **********\n\n";             //============================option to put data is over
+           out.close();is.close();os.close();
+           cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+           Beep(1500,450);
+		   goto start;
+		   break;
+		 }
+
+  case 2:{ cout<<"\a";
+           system("cls");                                                                                       //============================switch starts
+           ifstream is("SIZE.txt",ios::binary);
+           is>>::n;
+           ifstream in("DATA.txt",ios::binary|ios::app);                                                                 //============================to show the data in file
+           in.seekg(0);
+		   for(int j=0;j<(::n);j++)
+           {in.read((char*)&O2,sizeof(O2));                                                        
+           O2.show();
+		   cout<<endl<<endl<<endl<<endl;}
+		   in.close();is.close();
+           cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+		   Beep(1500,450);
+		   goto start;
+		   break;
+		}
+  
+  case 3:{  cout<<"\a";
+            system("cls");cin.ignore();ifstream is("SIZE.txt",ios::binary);
+            is>>::n;
+            ifstream in("DATA.txt",ios::binary|ios::app);                                                                 //============================to show the data in file
+            in.seekg(0);
+		    for(int j=0;j<(::n);j++)
+            {in.read((char*)&O2,sizeof(O2));                                                        
+            O2.show();
+		    cout<<endl;}
+		    in.close();is.close();
+  	        int i;
+			cout<<"*******************************************************************************\n\n\n";
+			cout<<"ENTER DATA YOU WANT TO INSERT\n\n";O3.get();
+			cout<<"\n\nAt which position do you want to add data? ";cin>>n;cin.ignore();cout<<endl;
+  	        ifstream inn("DATA.txt",ios::binary|ios::ate);
+  	        ofstream op("EDIT.txt",ios::binary|ios::ate);
+			inn.seekg(0);
+			op.seekp(0);
+		   	i=1;	  
+		    for(int j=0;j<(n-i);i--,j++)                                              //to enter the data dto EDIT before the given position
+			{inn.read((char *)&O2,sizeof(O2));
+		     op.write((char *)&O2,sizeof(O2));j++;}
+			op.write((char *)&O3,sizeof(O3));                                         //to write the data in EDIT after the first data entered to that file
+            while(!in.eof())                                                          //to enter the following data in EDIT file
+			{inn.read((char *)&O2,sizeof(O2));
+			 op.write((char*)&O2,sizeof(O2));}
+			op.close();inn.close();
+   			ifstream ip("EDIT.txt",ios::binary|ios::app);
+			ofstream out("DATA.txt",ios::binary);
+			while(!ip.eof())
+			{ip.read((char *)&O2,sizeof(O2));
+			 out.write((char *)&O2,sizeof(O2));}
+			ip.close();out.close();			
+			ifstream iss("SIZE.txt",ios::binary);
+			iss>>::n;
+			ofstream os("SIZE.txt",ios::binary);
+			os<<(::n+1);
+			os.close();iss.close();
+			cout<<"\nData inserted to position "<<n;
+			cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+			Beep(1500,450);
+			goto start;
+			break;}
+	
+   case 4:{cout<<"\a";
+           system("cls");                                                      //====================================to remove the data
+           ifstream is("SIZE.txt",ios::binary);
+           is>>::n;
+           ifstream in("DATA.txt",ios::binary);
+           for(int j=0;j<(::n);j++)
+           {in.read((char*)&O2,sizeof(O2));                                 //=== ifstream in                                 
+            O2.show();
+		    cout<<endl;}
+		    in.close();                                                     //================Just reading data
+		    int pos;
+		    cout<<"*******************************************************************************\n\n\n";
+			cout<<"\n\nEnter the position of data you want to delete ";cin>>pos;
+            ifstream ip("DATA.txt",ios::binary|ios::ate);
+		    ofstream op("EDIT.txt",ios::binary);
+		    ip.seekg(0);
+		    for(int i=0;i<(pos-1);i++)
+		   {ip.read((char *)&O2,sizeof(O2));
+		    op.write((char *)&O2,sizeof(O2));}
+		    ip.seekg(pos*sizeof(O2));
+		    while(!ip.eof())
+		   {ip.read((char *)&O2,sizeof(O2));
+		    op.write((char *)&O2,sizeof(O2));}
+		    ip.close();op.close();
+		    ifstream inn("EDIT.txt",ios::binary);
+		    ofstream opp("DATA.txt",ios::binary);
+		    while(!inn.eof())
+		    {inn.read((char *)&O2,sizeof(O2));
+		    opp.write((char *)&O2,sizeof(O2));}
+		    inn.close();opp.close();
+		    ifstream iss("SIZE.txt",ios::binary);
+			is>>::n;
+			ofstream oss("SIZE.txt",ios::binary);
+			oss<<(::n-1);
+			oss.close();iss.close();
+			cout<<"\nData removed from position "<<pos;
+			cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+	        Beep(1500,450);
+			goto start;
+            break;	   
+	   }
+ 
+ case 5:{cout<<"\a";
+         system("cls");
+         ifstream is("SIZE.txt",ios::binary);
+         is>>::n;
+         ifstream in("DATA.txt",ios::binary);
+         for(int j=0;j<(::n);j++)
+         {in.read((char*)&O2,sizeof(O2));                                                                 
+         O2.show();
+		 cout<<endl;}
+		 in.close();is.close();                                         //==========================simple show data
+         int pos;
+         cout<<"*******************************************************************************\n\n\n";
+		 cout<<"\nWhich position record you want to edit? ";cin>>pos;cin.ignore();cout<<endl;
+         fstream inn("DATA.txt",ios::in|ios::out|ios::binary|ios::ate);
+         inn.seekg((pos-1)*sizeof(O2));
+         inn.read((char *)&O2,sizeof(O2));
+         O2.get();
+		 inn.seekp((pos-1)*sizeof(O2));
+         inn.write((char *)&O2,sizeof(O2));
+         inn.close();
+         cout<<"\nData is edited at position "<<pos;
+		 cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+	     Beep(1500,450);
+		 goto start;
+         break;	   
+        }
+ 
+ case 6:{ cout<<"\a";
+          system("cls");
+          long long search;int flag=0;char ch='n';
+		  ifstream in("DATA.txt",ios::binary);
+          do
+		  {system("cls");
+		   cout<<"\n\t\t\tSEARCH CUSTOMER BY HIS PHONE NUMBER";
+		   cout<<"\n*******************************************************************************\n\n\n";
+		   cout<<"\n\nEnter the phone number of customer you are looking for->";cin>>search; //search is variable,SEARCH is member function
+		   
+		   while(!in.eof())
+		   {
+		   in.read((char *)&O2,sizeof(O2));
+		   if(O2.SEARCH()==search)
+		   {O2.show();
+		    flag=1;
+		    break;
+		   }}
+		  if(flag==0)
+		 {
+		  cout<<"\nYou entered wrong phone number.Wanna try again?\n(press 'y' for yes otherwise press any other key)-> ";cin>>ch;}in.close();}while(ch=='y');
+		  cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+		  Beep(1500,450);
+		  goto start;
+		  break;
+		} 
+         
+   case 7:{cout<<"\a";
+           system("cls");
+           char ch;
+           cout<<"*******************************************************************************\n\n\n";
+           cout<<"\nEnter the status you  want to search for\n(''R'' for 'repaired status' and ''N'' for 'not repaired' status)-> ";cin>>ch;cout<<endl<<endl;
+           fstream in("DATA.txt",ios::in|ios::binary);
+           ifstream is("SIZE.txt",ios::binary);
+           is>>::n;is.close();
+		   for(int i=0;i<(::n);i++)
+           {in.read((char *)&O2,sizeof(O2));
+           if(ch=='N')
+		   {if(O2.Status()==0)
+           {O2.show();}}
+           else if(ch=='R')
+           {if(O2.Status()==1)
+            {O2.show();}} 
+		   else{cout<<"\nWrong Input";break;}}
+	       in.close();
+		   cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";getch();
+	       Beep(1500,450);
+		   goto start;
+           break;	   
+			
+			
+      }
+   
+   
+   
+   
+   case 8:{cout<<"\a";
+         exit(0);}	       
+
+   default:{ cout<<"\a\a";
+            system("cls");
+     	    cout<<"\n\n*******************************************************************************\n\n\n";
+			cout<<"        YOU ENTERED THE WRONG CHOICE.PLEASE ENTER CORRECT CHOICE AGAIN!\n";
+		    cout<<"\n\n                        PRESS ANY KEY TO CONTINUE";
+			cout<<"\n\n\n*******************************************************************************\n\n\n";
+			getch();		    
+			Beep(1500,450);
+		    goto start;
+		    break;
+	       }
+  
+}}
+
+
